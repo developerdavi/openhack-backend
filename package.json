@@ -1,0 +1,25 @@
+{
+  "name": "market",
+  "version": "0.0.1",
+  "description": "Shawee's OpenHack team 141 project AI server",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^1.2.9",
+    "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.15.2",
+    "mongoose": "^5.5.13",
+    "path": "^0.12.7"
+  },
+  "ajax": {
+    "testEnvironment": "node"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  },
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  }
+}
