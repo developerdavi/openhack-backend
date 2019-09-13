@@ -1,6 +1,6 @@
-const tf = require('@tensorflow/tfjs-node')
+const tf = require('@tensorflow/tfjs')
 
-class LanguagesAI {
+class ExperienceAI {
 
   constructor(data) {
     this.data = data
@@ -10,8 +10,8 @@ class LanguagesAI {
     const model = tf.sequential()
 
     model.add(tf.layers.dense({
-      units: 4,
-      inputShape: [2]
+      units: 1,
+      inputShape: [1]
     }))
 
     model.add(tf.layers.dense({
@@ -29,36 +29,50 @@ class LanguagesAI {
   run() {
     const model = this.compile()
 
-    // 1 = JS
-    // 2 = Python
-    // 3 = PHP
-
     // input layer
-    const xs = tf.tensor2d([
-      [1, 2],
-      [1, 1],
-      [1, 3],
-      [2, 2],
-      [2, 3],
-      [3, 3]
-    ])
+    const xs = tf.tensor([
+      [0],
+      [1],
+      [2],
+      [3],
+      [4],
+      [5],
+      [6],
+      [7],
+      [8],
+      [9],
+      [10]
+    ], [11, 1])
 
     // output layer
-    const ys = tf.tensor2d([
-      0, 1, 0, 1, 0, 1
-    ])
+    const ys = tf.tensor([
+      [10],
+      [9.5],
+      [9],
+      [8.5],
+      [0.6],
+      [0.5],
+      [0.4],
+      [0],
+      [0],
+      [0],
+      [0]
+    ], [11, 1])
 
-    model.fit(xs, ys, {
-      epochs: 1
-    }).then(() => {
-      
-      const data = tf.tensor2d([this.data])
-
-      const prediction = model.predict(data)
-      return prediction
-
+    return new Promise (resolve => {
+      model.fit(xs, ys, {
+        epochs: 200
+      }).then(async () => {
+        
+        const data = tf.tensor2d([this.data])
+  
+        const prediction = model.predict(data)
+        resolve(prediction.dataSync())
+  
+      })
     })
+
   }
 }
 
-module.exports = { LanguagesAI }
+module.exports = { ExperienceAI }

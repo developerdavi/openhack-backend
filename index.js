@@ -4,7 +4,7 @@ const http = require('http').Server(app)
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-const { LanguagesAI } = require('./TeamMatchingAI/model')
+const { ExperienceAI } = require('./TeamMatchingAI/model')
 
 app.use(cors({ credentials: true }))
 
@@ -14,28 +14,70 @@ app.get('/', (req, res) => {
   res.json({ data: 'Hello world' })
 })
 
-app.post('/test', (req, res) => {
-  const people = req.body.people
-
-  let results = []
-
-  people.forEach((element, index) => {
-    let better
-    people.forEach((e, i) => {
-      if (i === index) return
-
-      const languageClassifier = new LanguagesAI([element.language, e.language])
-
-      const prediction = languageClassifier.run()
-
-      if (better.result < prediction) 
-        better = { result: prediction, e1: element, e2: e }
-    })
-    results.push(better)
-  })
-
-  res.json(results)
+app.post('/test', async (req, res) => {
+  
 })
+
+const testAI = async (data) => {
+  return new Promise(async resolve => {
+
+    const people = data
+  
+    let results = []
+  
+    var AI
+  
+    for (let index = 0; index < people.length / 2; index++) {
+      let better = 0
+
+      const p1 = people[index]
+      
+      for (let j = 0; j < people.length; j++) {
+        if (index == j) continue
+        
+        const p2 = people[j]
+
+        let input = p1.experience >= p2.experience ? p1.experience - p2.experience : p2.experience - p1.experience
+  
+        AI = new ExperienceAI([input])
+  
+        let data = await AI.run()
+
+        if (data[0] > better) {
+          results.push({p1: p1.experience, p2: p2.experience, data})
+          better = data[0]
+        }
+  
+      }
+    }
+  
+    resolve(results)
+  })
+}
+
+testAI([
+  {
+    experience: 10
+  },
+  {
+    experience: 8
+  },
+  {
+    experience: 6
+  },
+  {
+    experience: 4
+  },
+  {
+    experience: 2
+  },
+  {
+    experience: 0
+  },
+  {
+    experience: 0
+  }
+]).then(console.log)
 
 http.listen(3200, () => {
   console.log('[SERVER] Started')
