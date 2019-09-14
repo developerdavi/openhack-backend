@@ -15,6 +15,10 @@ class ExperienceAI {
     }))
 
     model.add(tf.layers.dense({
+      units: 3
+    }))
+
+    model.add(tf.layers.dense({
       units: 1
     }))
 
@@ -41,23 +45,25 @@ class ExperienceAI {
       [7],
       [8],
       [9],
-      [10]
-    ], [11, 1])
+      [10],
+      [0]
+    ], [12, 1])
 
     // output layer
     const ys = tf.tensor([
-      [10],
-      [9.5],
-      [9],
-      [8.5],
+      [1],
+      [0.8],
+      [.7],
       [0.6],
       [0.5],
       [0.4],
+      [0.3],
       [0],
       [0],
       [0],
-      [0]
-    ], [11, 1])
+      [0],
+      [1]
+    ], [12, 1])
 
     return new Promise (resolve => {
       model.fit(xs, ys, {
