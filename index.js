@@ -4,8 +4,9 @@ const http = require('http').Server(app)
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-const { ExperienceAI } = require('./TeamMatchingAI/model')
 const { compare, train } = require('./TeamMatchingAI/util')
+
+const fakeData = require('./fakeData')
 
 app.use(cors({ credentials: true }))
 
@@ -30,7 +31,7 @@ const testAI = async (data) => {
     let results = []
 
     for (let index = 0; index < people.length; index++) {
-      let better = { data: [0] }
+      let better = { data: 0 }
 
       const p1 = people[index]
       
@@ -41,46 +42,23 @@ const testAI = async (data) => {
 
         let result = await compare(p1, p2)
 
-        if (result[0] > better.data[0])
-          better = {p1: p1.experience, p2: p2.experience, data: result}
+        if (result > better.data)
+          better = {p1: p1.language, p2: p2.language, data: result}
 
-        console.log(`[${index}] ${p1.experience} + ${p2.experience} = ${result}`)
+        // console.log(`[${index}] ${p1.experience} + ${p2.experience} = ${result}`)
       }
 
       results.push(better)
+
+      
     }
   
     resolve(results)
   })
 }
 
-testAI([
-  {
-    experience: 10
-  },
-  {
-    experience: 8
-  },
-  {
-    experience: 6
-  },
-  {
-    experience: 4
-  },
-  {
-    experience: 2
-  },
-  {
-    experience: 0
-  },
-  {
-    experience: 0
-  },
-  {
-    experience: 0
-  }
-]).then(console.log)
+testAI(fakeData).then(console.log)
 
-http.listen(3200, () => {
-  console.log('[SERVER] Started')
-})
+// http.listen(3200, () => {
+//   console.log('[SERVER] Started')
+// })
