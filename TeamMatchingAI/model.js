@@ -15,7 +15,8 @@ class ExperienceAI {
     }))
 
     model.add(tf.layers.dense({
-      units: 3
+      units: 2,
+      activation: 'linear'
     }))
 
     model.add(tf.layers.dense({
@@ -30,7 +31,7 @@ class ExperienceAI {
     return model
   }
 
-  run() {
+  train() {
     const model = this.compile()
 
     // input layer
@@ -65,19 +66,20 @@ class ExperienceAI {
       [1]
     ], [12, 1])
 
-    return new Promise (resolve => {
-      model.fit(xs, ys, {
-        epochs: 200
-      }).then(async () => {
-        
-        const data = tf.tensor2d([this.data])
-  
-        const prediction = model.predict(data)
-        resolve(prediction.dataSync())
-  
+    return new Promise(resolve => {
+      model.fit(xs, ys, { epochs: 500 }).then(() => {
+        this.model = model
+        resolve()
       })
     })
+  }
 
+  run(_data) {
+    return new Promise (resolve => {
+      const data = tf.tensor2d([_data])
+      const prediction = this.model.predict(data)
+      resolve(prediction.dataSync())
+    })
   }
 }
 
