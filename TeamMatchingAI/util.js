@@ -12,13 +12,15 @@ module.exports = {
     
     let data = await expAI.run([input])
 
-    allResults[0] = data[0]
+    allResults[0] = data[0] * 2
 
     p1.language.forEach(lang => {
       allResults[1] += p2.language.includes(lang) ? 0.5 : 0
     })
 
     allResults[2] += p1.area === p2.area ? -0.5 : 1
+
+    allResults[3] += p1.interest === p2.interest ? 1 : 0
 
     const sum = allResults[0] + allResults [1] + allResults[2] + allResults [3]
 
