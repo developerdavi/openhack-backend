@@ -59,6 +59,6 @@ const testAI = async (data) => {
 
 testAI(fakeData).then(console.log)
 
-// http.listen(3200, () => {
-//   console.log('[SERVER] Started')
-// })
+http.listen(4000, () => {
+  console.log('[SERVER] Started')
+})
