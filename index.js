@@ -43,7 +43,7 @@ const testAI = async (data) => {
         let result = await compare(p1, p2)
 
         if (result > better.data)
-          better = {p1: p1.language, p2: p2.language, data: result}
+          better = {p1: p1.experience, p2: p2.experience, data: result}
 
         // console.log(`[${index}] ${p1.experience} + ${p2.experience} = ${result}`)
       }
