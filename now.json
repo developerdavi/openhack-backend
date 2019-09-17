@@ -2,8 +2,20 @@
   "version": 2,
   "builds": [
     {
-      "src": "*.js",
+      "src": "src/index.js",
       "use": "@now/node-server"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "src/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/test",
+      "dest": "src/index.js",
+      "methods": ["GET"]
     }
   ]
 }
