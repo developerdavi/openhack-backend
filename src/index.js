@@ -20,7 +20,6 @@ app.use((req, res, next) => {
 require('./routes')(app)
 
 http.listen(process.env.port || 4100, () => {
-  console.log(process.env.port)
   console.log('[SERVER] Started')
 })
 
