@@ -6,6 +6,11 @@
       "use": "@now/node-server"
     }
   ],
+  "build": {
+    "env": {
+      "MONGOPWD": "@MONGOPWD"
+    }
+  },
   "routes": [
     {
       "src": "/",
