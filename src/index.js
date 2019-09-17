@@ -12,8 +12,15 @@ app.use(cors({ credentials: true }))
 
 app.use(bodyParser.json())
 
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`) 
+  next()
+})
+
 require('./routes')(app)
 
-http.listen(4000, () => {
+http.listen(process.env.port || 4100, () => {
   console.log('[SERVER] Started')
 })
+
+process.on('SIGINT', () => { console.log("Bye bye!"); process.exit(); });
