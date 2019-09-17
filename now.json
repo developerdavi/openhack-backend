@@ -16,6 +16,21 @@
       "src": "/test",
       "dest": "src/index.js",
       "methods": ["GET"]
+    },
+    {
+      "src": "/users",
+      "dest": "src/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/user",
+      "dest": "src/index.js",
+      "methods": ["POST", "PUT", "DELETE"]
+    },
+    {
+      "src": "/user/:id",
+      "dest": "src/index.js",
+      "methods": ["GET"]
     }
   ]
 }
