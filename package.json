@@ -20,6 +20,6 @@
     "eslint": "^5.16.0"
   },
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon"
   }
 }
