@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 // MONGODB
 const mongoose = require('mongoose')
 
