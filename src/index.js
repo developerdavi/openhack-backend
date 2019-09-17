@@ -4,6 +4,8 @@ const http = require('http').Server(app)
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
+require('./Config/db')
+
 app.use(cors({ credentials: true }))
 
 app.use(bodyParser.json())
