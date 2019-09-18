@@ -42,16 +42,6 @@
       "src": "/user/:id",
       "dest": "src/index.js",
       "methods": ["GET"]
-    },
-    {
-      "src": "/mongopassword",
-      "dest": "src/index.js",
-      "methods": ["GET"]
-    },
-    {
-      "src": "/env",
-      "dest": "src/index.js",
-      "methods": ["GET"]
     }
   ]
 }
