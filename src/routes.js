@@ -17,8 +17,8 @@ const Routes = routes => {
   routes.delete('/user/:id', UsersController.delete)
 
   // DEBUG ONLY
-  routes.get('/mongopassword', (req, res) => res.json({password: process.env.mongopwd}))
-  routes.get('/env', (req, res) => res.json(process.env))
+  // routes.get('/mongopassword', (req, res) => res.json({password: process.env.mongopwd}))
+  // routes.get('/env', (req, res) => res.json(process.env))
 }
 
 module.exports = Routes
