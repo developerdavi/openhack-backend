@@ -1,18 +1,19 @@
 const tf = require('@tensorflow/tfjs')
 
+const GENERATIONS = 700
+
 class ExperienceAI {
   compile() {
     const model = tf.sequential()
 
     model.add(tf.layers.dense({
-      units: 4,
+      units: 1,
       inputShape: [1],
       activation: 'hardSigmoid'
     }))
 
     model.add(tf.layers.dense({
       units: 4,
-      inputShape: [1],
       activation: 'linear'
     }))
 
@@ -69,37 +70,44 @@ class ExperienceAI {
     ], [12, 1])
 
     return new Promise(async resolve => {
-      for (let index = 0; index < 1000; index++) {
+      let loss = 0
+      console.log('[ExperienceAI] Training')
+      for (let index = 0; index < GENERATIONS; index++) {
         const response = await model.fit(xs, ys, { shuffle: true })
-        console.log(response.history.loss)
+        loss = response.history.loss[0]
       }
+      console.log('[ExperienceAI] Finished training')
+      console.log('[ExperienceAI] Loss = ' + loss)
       this.model = model
-      resolve()
+      resolve(loss)
     })
   }
 
   run(_data) {
+    if (!this.model) {
+      console.log('MODEL NOT FOUND')
+      return 0
+    }
+    const model = this.model
     return new Promise(resolve => {
       const data = tf.tensor2d([_data])
-      const prediction = this.model.predict(data)
+      const prediction = model.predict(data)
       resolve(prediction.dataSync())
     })
   }
 }
-
-class CompareAI {
+class LanguagesAI {
   compile() {
     const model = tf.sequential()
 
     model.add(tf.layers.dense({
-      units: 4,
+      units: 1,
       inputShape: [1],
       activation: 'hardSigmoid'
     }))
 
     model.add(tf.layers.dense({
       units: 4,
-      inputShape: [1],
       activation: 'linear'
     }))
 
@@ -120,48 +128,32 @@ class CompareAI {
     return model
   }
 
-  train() {
+  async train() {
     const model = this.compile()
 
     // input layer
     const xs = tf.tensor([
-      [0],
       [1],
-      [2],
-      [3],
-      [4],
-      [5],
-      [6],
-      [7],
-      [8],
-      [9],
-      [10],
-      [0]
-    ], [12, 1])
+      [0],
+    ], [2, 1])
 
     // output layer
     const ys = tf.tensor([
       [1],
-      [0.8],
-      [.7],
-      [0.6],
-      [0.5],
-      [0.4],
-      [0.3],
       [0],
-      [0],
-      [0],
-      [0],
-      [1]
-    ], [12, 1])
+    ], [2, 1])
 
     return new Promise(async resolve => {
-      for (let index = 0; index < 10000; index++) {
+      let loss = 0
+      console.log('[LanguagesAI] Training')
+      for (let index = 0; index < GENERATIONS; index++) {
         const response = await model.fit(xs, ys, { shuffle: true })
-        console.log(response.history.loss)
+        loss = response.history.loss[0]
       }
+      console.log('[LanguagesAI] Finished training')
+      console.log('[LanguagesAI] Loss = ' + loss)
       this.model = model
-      resolve()
+      resolve(loss)
     })
   }
 
@@ -174,4 +166,4 @@ class CompareAI {
   }
 }
 
-module.exports = { ExperienceAI, CompareAI }
+module.exports = { ExperienceAI, LanguagesAI }
