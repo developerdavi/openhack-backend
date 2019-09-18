@@ -4,7 +4,7 @@ const http = require('http').Server(app)
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-require('dotenv').config()
+if (!process.env.now) require('dotenv').config()
 
 require('./Config/db')
 

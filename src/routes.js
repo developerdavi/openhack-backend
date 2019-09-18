@@ -1,8 +1,6 @@
 const MatchingController = require('./Controllers/matching')
 const UsersController = require('./Controllers/users')
 
-require('dotenv').config()
-
 const Routes = routes => {
   routes.get('/', (req, res) => {
     res.json({ data: 'Hello world' })
@@ -20,6 +18,7 @@ const Routes = routes => {
 
   // DEBUG ONLY
   routes.get('/mongopassword', (req, res) => res.json({password: process.env.mongopwd}))
+  routes.get('/env', (req, res) => res.json(process.env))
 }
 
 module.exports = Routes
