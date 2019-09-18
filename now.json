@@ -1,4 +1,7 @@
 {
+  "name": "openhack-backend",
+  "alias": ["api-openhack.now.sh"],
+  "scope": "openhack-team-141",
   "version": 2,
   "builds": [
     {
@@ -10,6 +13,9 @@
     "env": {
       "mongopwd": "@mongopwd"
     }
+  },
+  "env": {
+    "mongopwd": "@mongopwd"
   },
   "routes": [
     {
