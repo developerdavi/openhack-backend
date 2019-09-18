@@ -1,6 +1,8 @@
 const MatchingController = require('./Controllers/matching')
 const UsersController = require('./Controllers/users')
 
+require('dotenv').config()
+
 const Routes = routes => {
   routes.get('/', (req, res) => {
     res.json({ data: 'Hello world' })
