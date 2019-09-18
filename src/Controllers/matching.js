@@ -1,10 +1,12 @@
-const fakeData = require('../fakeData')
 const { testAI } = require('../TeamMatchingAI')
+const users = require('../Model/users')
 
 module.exports = {
   test: async (req, res) => {
-    await testAI(fakeData).then(data => {
-      res.json({original: fakeData, results: data})
+    let data = await users.find({type: 'participant'})
+
+    await testAI(data).then(data => {
+      res.json({original: data, results: data})
     })
   }
 }

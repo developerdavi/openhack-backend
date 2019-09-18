@@ -6,6 +6,9 @@ const compareAI = new CompareAI()
 const compare = async (p1, p2) => {
   let allResults = [0,0,0,0]
 
+  p1 = p1.tech_info
+  p2 = p2.tech_info
+
   // COMPARE EXPERIENCES
   let input = p1.experience >= p2.experience ? p1.experience - p2.experience : p2.experience - p1.experience
   
@@ -13,8 +16,8 @@ const compare = async (p1, p2) => {
 
   allResults[0] = data[0] * 2
 
-  p1.language.forEach(lang => {
-    allResults[1] += p2.language.includes(lang) ? 0.5 : 0
+  p1.programmingLanguages.forEach(lang => {
+    allResults[1] += p2.programmingLanguages.includes(lang) ? 0.5 : 0
   })
 
   allResults[2] += p1.area === p2.area ? -0.5 : 1
@@ -45,14 +48,14 @@ module.exports = {
         
         const p1 = people[index]
 
-        if (matched.includes(p1.id)) continue
+        if (matched.includes(p1._id)) continue
         
         for (let j = 0; j < people.length; j++) {
           if (index == j) continue
           
           const p2 = people[j]
           
-          if (matched.includes(p2.id)) continue
+          if (matched.includes(p2._id)) continue
   
           let result = await compare(p1, p2)
   
@@ -61,8 +64,10 @@ module.exports = {
         }
   
         results.push(better)
-        matched.push(better.p1.id)
-        matched.push(better.p2.id)
+        if (better.p1) {
+          matched.push(better.p1._id)
+          matched.push(better.p2._id)
+        }
       }
     
       resolve(results)
