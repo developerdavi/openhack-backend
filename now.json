@@ -42,6 +42,51 @@
       "src": "/user/(.*)",
       "dest": "src/index.js",
       "methods": ["GET"]
+    },
+    {
+      "src": "/teams",
+      "dest": "src/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/team",
+      "dest": "src/index.js",
+      "methods": ["POST", "PUT", "DELETE"]
+    },
+    {
+      "src": "/team/(.*)",
+      "dest": "src/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/hackathons",
+      "dest": "src/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/hackathon",
+      "dest": "src/index.js",
+      "methods": ["POST", "PUT", "DELETE"]
+    },
+    {
+      "src": "/hackathon/(.*)",
+      "dest": "src/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/feedbacks",
+      "dest": "src/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/feedback",
+      "dest": "src/index.js",
+      "methods": ["POST", "PUT", "DELETE"]
+    },
+    {
+      "src": "/feedback/(.*)",
+      "dest": "src/index.js",
+      "methods": ["GET"]
     }
   ]
 }
