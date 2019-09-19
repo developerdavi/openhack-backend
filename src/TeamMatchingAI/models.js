@@ -1,6 +1,6 @@
 const tf = require('@tensorflow/tfjs')
 
-const GENERATIONS = 700
+const GENERATIONS = 5000
 
 class ExperienceAI {
   compile() {
@@ -165,5 +165,143 @@ class LanguagesAI {
     })
   }
 }
+class DevAreaAI {
+  compile() {
+    const model = tf.sequential()
 
-module.exports = { ExperienceAI, LanguagesAI }
+    model.add(tf.layers.dense({
+      units: 1,
+      inputShape: [1],
+      activation: 'hardSigmoid'
+    }))
+
+    model.add(tf.layers.dense({
+      units: 4,
+      activation: 'linear'
+    }))
+
+    model.add(tf.layers.dense({
+      units: 2,
+      activation: 'linear'
+    }))
+
+    model.add(tf.layers.dense({
+      units: 1
+    }))
+
+    model.compile({
+      loss: 'meanSquaredError',
+      optimizer: 'sgd'
+    })
+
+    return model
+  }
+
+  async train() {
+    const model = this.compile()
+
+    // input layer
+    const xs = tf.tensor([
+      [1],
+      [0],
+    ], [2, 1])
+
+    // output layer
+    const ys = tf.tensor([
+      [1],
+      [0],
+    ], [2, 1])
+
+    return new Promise(async resolve => {
+      let loss = 0
+      console.log('[DevAreaAI] Training')
+      for (let index = 0; index < GENERATIONS; index++) {
+        const response = await model.fit(xs, ys, { shuffle: true })
+        loss = response.history.loss[0]
+      }
+      console.log('[DevAreaAI] Finished training')
+      console.log('[DevAreaAI] Loss = ' + loss)
+      this.model = model
+      resolve(loss)
+    })
+  }
+
+  run(_data) {
+    return new Promise(resolve => {
+      const data = tf.tensor2d([_data])
+      const prediction = this.model.predict(data)
+      resolve(prediction.dataSync())
+    })
+  }
+}
+class InterestAI {
+  compile() {
+    const model = tf.sequential()
+
+    model.add(tf.layers.dense({
+      units: 1,
+      inputShape: [1],
+      activation: 'hardSigmoid'
+    }))
+
+    model.add(tf.layers.dense({
+      units: 4,
+      activation: 'linear'
+    }))
+
+    model.add(tf.layers.dense({
+      units: 2,
+      activation: 'linear'
+    }))
+
+    model.add(tf.layers.dense({
+      units: 1
+    }))
+
+    model.compile({
+      loss: 'meanSquaredError',
+      optimizer: 'sgd'
+    })
+
+    return model
+  }
+
+  async train() {
+    const model = this.compile()
+
+    // input layer
+    const xs = tf.tensor([
+      [1],
+      [0],
+    ], [2, 1])
+
+    // output layer
+    const ys = tf.tensor([
+      [1],
+      [0],
+    ], [2, 1])
+
+    return new Promise(async resolve => {
+      let loss = 0
+      console.log('[InterestAI] Training')
+      for (let index = 0; index < GENERATIONS; index++) {
+        const response = await model.fit(xs, ys, { shuffle: true })
+        loss = response.history.loss[0]
+      }
+      console.log('[InterestAI] Finished training')
+      console.log('[InterestAI] Loss = ' + loss)
+      this.model = model
+      resolve(loss)
+    })
+  }
+
+  run(_data) {
+    return new Promise(resolve => {
+      const data = tf.tensor2d([_data])
+      const prediction = this.model.predict(data)
+      resolve(prediction.dataSync())
+    })
+  }
+}
+
+module.exports = { ExperienceAI, LanguagesAI, DevAreaAI, InterestAI }

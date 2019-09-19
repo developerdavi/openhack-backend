@@ -1,7 +1,9 @@
-const { ExperienceAI, LanguagesAI } = require('./models')
+const { ExperienceAI, LanguagesAI, InterestAI, DevAreaAI } = require('./models')
 
 const expAI = new ExperienceAI()
 const languagesAI = new LanguagesAI()
+const devAreaAI = new DevAreaAI()
+const interestAI = new InterestAI()
 
 // GLOBAL VARIABLES
 var loss = 0
@@ -30,15 +32,22 @@ const compare = async (p1, p2) => {
   })
 
   data = await languagesAI.run([input])
-
+  
   allResults[1] = data[0]
 
   // COMPARE DEVELOPMENT AREA
   input = p1.area === p2.area ? 1 : 0
 
-  allResults[2] = p1.area === p2.area ? -0.5 : 1
+  data = await devAreaAI.run([input])
+  
+  allResults[2] = data[0]
 
-  allResults[3] = p1.interest === p2.interest ? 1 : 0
+  // COMPARE HACKATHON INTEREST
+  input = p1.interest === p2.interest ? 1 : 0
+
+  data = await interestAI.run([input])
+  
+  allResults[3] = data[0]
 
   const sum = allResults[0] + allResults[1] + allResults[2] + allResults[3]
 
@@ -47,10 +56,12 @@ const compare = async (p1, p2) => {
 
 const train = () => {
   return new Promise(async resolve => {
-    let x, y
-    x = await expAI.train()
-    y = await languagesAI.train()
-    resolve(y)
+    let w, x, y, z
+    w = await expAI.train()
+    x = await languagesAI.train()
+    y = await devAreaAI.train()
+    z = await interestAI.train()
+    resolve(w+x+y+z)
   })
 }
 
