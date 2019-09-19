@@ -1,4 +1,4 @@
-const { Schema, Model } = require('mongoose')
+const { Schema, model } = require('mongoose')
 
 const hackatonSchema = new Schema(
   {
@@ -22,4 +22,4 @@ const hackatonSchema = new Schema(
   }
 )
 
-module.exports = Model('hackatons', hackatonSchema)
+module.exports = model('hackatons', hackatonSchema)

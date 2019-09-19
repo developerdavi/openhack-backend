@@ -1,4 +1,4 @@
-const { Model, Schema } = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const feedbackSchema = new Schema({
   type: String,
@@ -7,4 +7,4 @@ const feedbackSchema = new Schema({
   value: Number
 })
 
-module.exports = Model('feedbacks', feedbackSchema)
+module.exports = model('feedbacks', feedbackSchema)
