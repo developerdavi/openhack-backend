@@ -91,7 +91,7 @@ module.exports = {
 
       let precision = 100 - loss * 100
 
-      resolve({ precision: `${precision}%`, matching: results })
+      resolve({ precision: `${precision.toFixed(2)}%`, matching: results })
     })
   }
 }
