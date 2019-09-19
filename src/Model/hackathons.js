@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const hackatonSchema = new Schema(
+const hackathonSchema = new Schema(
   {
     name: {
       type: String,
@@ -22,4 +22,4 @@ const hackatonSchema = new Schema(
   }
 )
 
-module.exports = model('hackatons', hackatonSchema)
+module.exports = model('hackathons', hackathonSchema)

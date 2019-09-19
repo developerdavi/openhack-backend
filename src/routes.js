@@ -1,6 +1,7 @@
 const MatchingController = require('./Controllers/matching')
 const UsersController = require('./Controllers/users')
 const TeamsController = require('./Controllers/teams')
+const HackathonsController = require('./Controllers/hackathons')
 
 const Routes = routes => {
   routes.get('/', (req, res) => {
@@ -23,6 +24,13 @@ const Routes = routes => {
   routes.post('/team', TeamsController.create)
   routes.put('/team', TeamsController.update)
   routes.delete('/team/:id', TeamsController.delete)
+
+  // HACKATONS
+  routes.get('/hackathons', HackathonsController.index)
+  routes.get('/hackathon/:id', HackathonsController.get)
+  routes.post('/hackathon', HackathonsController.create)
+  routes.put('/hackathon', HackathonsController.update)
+  routes.delete('/hackathon/:id', HackathonsController.delete)
 
   // DEBUG ONLY
   // routes.get('/mongopassword', (req, res) => res.json({password: process.env.mongopwd}))
