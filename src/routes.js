@@ -11,13 +11,16 @@ const Routes = routes => {
 
   // A.I.
   routes.get('/test', MatchingController.test)
+  routes.get('/match', MatchingController.match)
 
   // USERS
   routes.get('/users', UsersController.index)
+  routes.delete('/users/massive', UsersController.deleteMassive)
   routes.get('/user/:id', UsersController.get)
   routes.post('/user', UsersController.create)
   routes.put('/user', UsersController.update)
   routes.delete('/user/:id', UsersController.delete)
+  routes.post('/generate_users', UsersController.createRandomUsers)
 
   // TEAMS
   routes.get('/teams', TeamsController.index)
