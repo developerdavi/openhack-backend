@@ -1,5 +1,6 @@
 const { testAI, compare, train } = require('../TeamMatchingAI')
 const users = require('../Model/users')
+const Teams = require('../Model/teams')
 
 function arr_diff(a1, a2) {
   let xa1 = []
@@ -91,6 +92,8 @@ const teamMatching = async () => {
 
   let not_matched = arr_diff(participants, matched)
 
+  await Teams.deleteMany()
+
   while (not_matched.length > 0) {
     const user = not_matched[0]
     matched.push(user._id)
@@ -125,7 +128,7 @@ const teamMatching = async () => {
       let member = await team.members[x]
       
       let matches = {}
-      
+
       if (team.members.length == 5 || not_matched.length == 0) break
 
       for (let i = 0; i < random_users.length; i++) {
@@ -152,8 +155,6 @@ const teamMatching = async () => {
 
       let better = getCommonMatch(matches).user
 
-      console.log(better)
-
       random_users = random_users.filter(v => v._id != better._id)
 
       matched.push(better.user._id)
@@ -174,6 +175,8 @@ const teamMatching = async () => {
   }
 
   // console.log('FINISHED', teams)
+
+  await Teams.create(teams)
 
   return teams
 }
