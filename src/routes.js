@@ -11,7 +11,7 @@ const Routes = routes => {
 
   // A.I.
   routes.get('/test', MatchingController.test)
-  routes.get('/match', MatchingController.match)
+  routes.post('/match', MatchingController.match)
 
   // USERS
   routes.get('/users', UsersController.index)
