@@ -32,21 +32,21 @@ const compare = async (p1, p2) => {
   })
 
   data = await languagesAI.run([input])
-  
+
   allResults[1] = data[0]
 
   // COMPARE DEVELOPMENT AREA
   input = p1.area === p2.area ? 1 : 0
 
   data = await devAreaAI.run([input])
-  
+
   allResults[2] = data[0]
 
   // COMPARE HACKATHON INTEREST
   input = p1.interest === p2.interest ? 1 : 0
 
   data = await interestAI.run([input])
-  
+
   allResults[3] = data[0]
 
   const sum = allResults[0] + allResults[1] + allResults[2] + allResults[3]
@@ -61,11 +61,13 @@ const train = () => {
     x = await languagesAI.train()
     y = await devAreaAI.train()
     z = await interestAI.train()
-    resolve(w+x+y+z)
+    resolve(w + x + y + z)
   })
 }
 
 module.exports = {
+  compare,
+  train,
   testAI: async data => {
     loss = await train()
     return new Promise(async resolve => {
