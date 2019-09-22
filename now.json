@@ -87,6 +87,11 @@
       "src": "/feedback/(.*)",
       "dest": "src/index.js",
       "methods": ["GET"]
+    },
+    {
+      "src": "/match",
+      "dest": "src/index.js",
+      "methods": ["POST"]
     }
   ]
 }
