@@ -208,8 +208,8 @@ class DevAreaAI {
 
     // output layer
     const ys = tf.tensor([
-      [1],
       [0],
+      [1],
     ], [2, 1])
 
     return new Promise(async resolve => {
