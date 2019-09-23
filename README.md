@@ -19,7 +19,8 @@ There's a lambda CDN running this code at this moment. You can test it right now
 https://api-openhack.now.sh
 
 ### But, how can I properly test it? :thinking:
-If you like using Insomnia, I created a workspace while I was developing the project.
+If you like using Insomnia, I created a workspace while I was developing the project. I just exported the workspace and added it to the repo.
+You can download/view the file clicking [here](https://raw.githubusercontent.com/developerdavi/openhack-backend/master/Insomnia%20Export.json).
 
 ### Final thoughts
 Well, if you are reading this and you liked this project, a star :star: of some kind of feedback would be really appreciated.
