@@ -4,7 +4,7 @@
   "description": "Shawee's OpenHack team 141 project AI server",
   "dependencies": {
     "@tensorflow/tfjs-node": "^1.2.9",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
